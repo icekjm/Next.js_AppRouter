@@ -1,18 +1,18 @@
-import ClientComponent from "@/components/client-component";
+import books from "@/mock/books.json";
+import BookItem from "@/components/book-item";
 
-//원래는 함수형 컴포넌트에 async키워드를 붙일수 없지만, 한번만 실행되는 서버컴포넌트이기에 가능?
-export default async function Page({
+export default function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ q: string }>;
+  searchParams: Promise<{
+    q?: string;
+  }>;
 }) {
-  const { q } = await searchParams;
   return (
     <div>
-      Search 페이지 : {q}
-      <ClientComponent>
-        <></>
-      </ClientComponent>
+      {books.map((book) => (
+        <BookItem key={book.id} {...book} />
+      ))}
     </div>
   );
 }
